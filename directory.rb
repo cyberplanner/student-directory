@@ -41,11 +41,20 @@ def print_students_begin_with students
   letter = gets.chomp
   students.each_with_index do |student, number|
     if student[:name].chars.first.downcase == letter.downcase
-    puts "#{number + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+      puts "#{number + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
     end
   end
 end
 
+# only print the students whose name is shorter than 12 characters
+def shorter_than_twelve students
+  puts "\n\nStudents with names shorter than 12 characters:"
+  students.each_with_index do |student, number|
+    if student[:name].length < 12
+      puts "#{number + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    end
+  end
+end
 
 
 
@@ -58,3 +67,4 @@ print_header
 print students
 print_footer students
 print_students_begin_with students
+shorter_than_twelve students
