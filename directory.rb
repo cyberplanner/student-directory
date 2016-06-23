@@ -35,9 +35,26 @@ def print_footer students
   puts "Overall, we have #{students.count} great students"
 end
 
+#print the students whose name begins with a specific letter.
+def print_students_begin_with students
+  puts "To print students whose names begins with a letter, please enter a letter: "
+  letter = gets.chomp
+  students.each_with_index do |student, number|
+    if student[:name].chars.first.downcase == letter.downcase
+    puts "#{number + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    end
+  end
+end
+
+
+
+
+
+
 #calling methods
 #getting input from the user
 students = input_students
 print_header
 print students
 print_footer students
+print_students_begin_with students
