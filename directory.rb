@@ -1,7 +1,7 @@
 # Adding a method for user ineraction/user input
 def input_students
   puts "Please enter the names of the students:"
-  puts "To shinish, just hit return twice"
+  puts "To finish, just hit return twice"
   # the array in which the input is gonna be saved
   students = []
   # get the first name
@@ -25,8 +25,8 @@ end
 
 #Print each element in the array(array containing the name in [0] and the cohort in [1]) by iterating over the array
 def print students
-  students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+  students.each_with_index do |student, number|
+    puts "#{number + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
 
