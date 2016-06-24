@@ -1,6 +1,6 @@
 # Adding a method for user ineraction/user input
 def input_students
-  puts "Please enter the names of the students:"
+  puts "Please enter the names of the student:"
   puts "To finish, just hit return twice"
   # the array in which the input is gonna be saved
   students = []
@@ -19,17 +19,17 @@ def input_students
 end
 
 def print_header
-  puts "The students of Villains Academy"
-  puts "-------------"
+  puts "The students of Villains Academy".center(70)
+  puts "-------------".center(70)
 end
 
 #Print each element in the array(array containing the name in [0] and the cohort in [1]) by iterating over the array
 
 def print students
   counter = 1
-  while counter <= 11
+  while counter < students.length
     students.map do |student|
-    puts "#{counter}. #{student[:name]} (#{student[:cohort]} cohort)"
+    puts "#{counter}. #{student[:name]} (#{student[:cohort]} cohort)".center(70)
     counter += 1
     end
   end
@@ -41,7 +41,7 @@ end
 
 #finally, we print the total number of students
 def print_footer students
-  puts "Overall, we have #{students.count} great students"
+  puts "Overall, we have #{students.count} great students".center(70)
 end
 
 #print the students whose name begins with a specific letter.
@@ -50,7 +50,7 @@ def print_students_begin_with students
   letter = gets.chomp
   students.each_with_index do |student, number|
     if student[:name].chars.first.downcase == letter.downcase
-      puts "#{number + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+      puts "#{number + 1}. #{student[:name]} (#{student[:cohort]} cohort)".center(70)
     end
   end
 end
@@ -60,7 +60,7 @@ def shorter_than_twelve students
   puts "\n\nStudents with names shorter than 12 characters:"
   students.each_with_index do |student, number|
     if student[:name].length < 12
-      puts "#{number + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+      puts "#{number + 1}. #{student[:name]} (#{student[:cohort]} cohort)".center(70)
     end
   end
 end
