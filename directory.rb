@@ -24,10 +24,19 @@ def print_header
 end
 
 #Print each element in the array(array containing the name in [0] and the cohort in [1]) by iterating over the array
+
 def print students
-  students.each_with_index do |student, number|
-    puts "#{number + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+  counter = 1
+  while counter <= 11
+    students.map do |student|
+    puts "#{counter}. #{student[:name]} (#{student[:cohort]} cohort)"
+    counter += 1
+    end
   end
+  
+#  students.each_with_index do |student, number|
+#    puts "#{number + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+#  end
 end
 
 #finally, we print the total number of students
