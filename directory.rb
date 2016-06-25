@@ -147,7 +147,7 @@ end
 # load the students data from the csv file
 def load_students
   file = File.open "students.csv", "r"
-  file.readline do |line|
+  file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
     @students << {name: name, cohort: cohort.to_sym}
   end
@@ -198,4 +198,3 @@ end
 #calling the method
 #interactive_menu
 interactive_menu
-
