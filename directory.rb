@@ -39,8 +39,8 @@ def input_students
     else
       puts "Now we have #{students.count} students"
     end
-    
-    name = gets.chomp
+      #gets another name from the user..unless it's empty the while loop continues
+      name = gets.chomp
     end
   #return the array of students
   students
@@ -55,34 +55,44 @@ end
 #Print each element in the array(array containing the name in [0] and the cohort in [1]) by iterating over the array
 
 def print_students students
-  counter = 1
-  while counter <= students.length
-    students.map do |student|
+  if students.length > 0
+    while counter <= students.length
     name = student[:name]
     cohort = student[:cohort].to_s.capitalize
-    if student[:name].length < 12
-      puts "#{counter.to_s.ljust(4)}. #{name.ljust(40)} (#{cohort.rjust(10)} cohort)"
-      counter += 1
+   
+     students.map do |student|
+        if student[:name].length < 12 && students.length > 0
+        puts "#{counter.to_s.ljust(4)}. #{name.ljust(40)} (#{cohort.rjust(10)} cohort)"
+        counter += 1
+        end
+      end
     end
-    
-    end #I DON'T THINK I NEED THIS END
+  else
+    puts "There's no students to display".center(70)
   end
+  counter = 1
+  
 end
 
 #finally, we print the total number of students
 def print_footer students
-  puts "Overall, we have #{students.count} great students".center(70)
+  if students.length > 0
+    puts "Overall, we have #{students.count} great students".center(70)
+  end
 end
 
 #print the students whose name begins with a specific letter.
 def print_students_begin_with students
-  puts "To print students whose names begins with a letter, please enter a letter: "
-  letter = gets.chomp
-  students.each_with_index do |student, number|
-    if student[:name].chars.first.downcase == letter.downcase
-      puts "#{number + 1}. #{student[:name]} (#{student[:cohort]} cohort)".center(70)
+  if students.length > 0
+      puts "To print students whose names begins with a letter, please enter a letter: "
+    letter = gets.chomp
+    students.each_with_index do |student, number|
+      if student[:name].chars.first.downcase == letter.downcase
+        puts "#{number + 1}. #{student[:name]} (#{student[:cohort]} cohort)".center(70)
+      end
     end
   end
+  
 end
 
 =begin
@@ -106,18 +116,19 @@ end
 existing_cohorts = []
 
 def cohorts students, existing_cohorts
-  puts "\nHere's a list of students arranged by cohort: "
-  puts "-------------".center(70)
-  existing_cohorts = students.map {|student| student[:cohort]}.sort.uniq
-   for i in (0..existing_cohorts.length-1)
-
+  if students.length > 0
+    puts "\nHere's a list of students arranged by cohort: "
+    puts "-------------".center(70)
+    existing_cohorts = students.map {|student| student[:cohort]}.sort.uniq
+     for i in (0..existing_cohorts.length-1)
       students.map do |student|
-        if student[:cohort]== existing_cohorts[i]
-          puts "#{student[:name]} (#{student[:cohort]} cohort)".center(70)
-
-        end
-      end
+       if student[:cohort]== existing_cohorts[i]
+        puts "#{student[:name]} (#{student[:cohort]} cohort)".center(70)
+       end
     end
+  end
+  end
+  
 end
 =begin
 
