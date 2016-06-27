@@ -1,6 +1,9 @@
-
-#########################
 @students = [] # an empty array accessible to all methods
+#########################
+#add to @students
+def add_to_students name, cohort
+  @students << {name: name, cohort: cohort.to_sym} #, hobbies:[], country:"Not known", height_m: "Not known"
+end
 #########################
 # Adding a method for user ineraction/user input
 def input_students
@@ -9,24 +12,24 @@ def input_students
   # the array in which the input is gonna be saved
   
   # get the first name
-  name = STDIN.gets.chomp
+  name = gets.chomp
   # while the name is not 'empty?', repeat this code
   while !name.empty? do
     # get the cohort
     m = false
     while m == false
       puts "Which cohort does #{name} belong to? Please enter the month name."
-      cohortlabel = STDIN.gets.chomp.downcase
+      cohort = gets.chomp.downcase
       #define an array of months to compare against
       months = ["january", "february", "march",
          "april", "may", "june", "july", "august",
           "september", "october", "november", "december"]
       #check for typos
-      if months.include?(cohortlabel)
+      if months.include?(cohort)
         m = true
       #check if empty
-      elsif cohortlabel.empty?
-        cohortlabel = "Unknown"
+      elsif cohort.empty?
+        cohort = "Unknown"
         m = true
       else
         puts "Please enter a valid month: "
@@ -34,11 +37,11 @@ def input_students
     end #end second while
     
     #convert the cohort label into a symbol
-    cohortlabel = cohortlabel.to_sym
+    #cohortlabel = cohortlabel   #DON'T NEED THIS LINE NOW
 
     
     # Add the student hash to the array with a cohort hash
-    @students << {name: name, cohort: cohortlabel} #, hobbies:[], country:"Not known", height_m: "Not known"
+    add_to_students name, cohort #refactored
     # then puts the number of students/entries in the students array 
     if @students.count == 1
       puts "Now we have #{@students.count} student"
@@ -46,7 +49,7 @@ def input_students
       puts "Now we have #{@students.count} students"
     end
       #gets another name from the user..unless it's empty the while loop continues
-      name = STDIN.gets.chomp  #gets.gsub(/\n/,”")
+      name = gets.chomp  #gets.gsub(/\n/,”")
     end
   #return the array of students
   #students
@@ -135,7 +138,7 @@ def save_students
   file.close  
 end
 #########################
-# A method to take the file name as in argument
+# amethod to take the file name as in argument
 def try_load_students
   filename = ARGV.first # first argument from the command line
   return if filename.nil? # get out of the method if it isn't given
@@ -154,7 +157,7 @@ def load_students(filename = "students.csv")
   file = File.open filename, "r"
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
-    @students << {name: name, cohort: cohort.to_sym}
+    add_to_students name, cohort #refactored
   end
   file.close
 end
@@ -165,7 +168,7 @@ end
 def interactive_menu
   loop do
     print_menu
-    process(STDIN.gets.chomp)
+    process(gets.chomp)
   end
 end
 
@@ -192,7 +195,7 @@ def process(selection)
     when "3"
       save_students
     when "4"
-      try_load_students
+      load_students
     when "9"
       exit
     else
@@ -204,4 +207,3 @@ end
 #calling the method
 #interactive_menu
 interactive_menu
-
