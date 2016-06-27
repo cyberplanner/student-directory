@@ -128,20 +128,25 @@ end
 #######################
 # save the students data to a csv file
 def save_students
-  file = File.open "students.csv", "w"
+  puts "Please enter the name of the file:"
+  filename = STDIN.gets.chomp + ".csv"
+  file = File.open filename, "w"
   #iterating over the students array
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
     file.puts csv_line
   end
-  file.close  
+  #file.close  
 end
 #########################
 # amethod to take the file name as in argument
 def try_load_students
   filename = ARGV.first # first argument from the command line
-  return if filename.nil? # get out of the method if it isn't given
+  if filename.nil? # get out of the method if it isn't given
+    puts "Please enter the a full file name to load (extension included): "
+    filename = STDIN.gets.chomp
+  end
   if File.exists?(filename) # if it exists
     load_students(filename)
      puts "Loaded #{@students.count} from #{filename}"
@@ -159,7 +164,7 @@ def load_students(filename = "students.csv")
     name, cohort = line.chomp.split(",")
     add_to_students name, cohort #refactored
   end
-  file.close
+  #file.close
 end
 
 ########################
@@ -175,8 +180,8 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the students to students.csv"
-  puts "4. Load the students to students.csv"
+  puts "3. Save the students to file"
+  puts "4. Load the students from file"
   puts "9. Exit" # 9 because we'll be adding more items
 end
 
@@ -195,8 +200,9 @@ def process(selection)
     when "3"
       save_students
     when "4"
-      load_students
+      try_load_students
     when "9"
+      puts "The program is now terminated! Good bye!"
       exit
     else
       puts "I don't know what you mean, try again"
