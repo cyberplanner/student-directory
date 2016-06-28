@@ -1,8 +1,15 @@
+require 'rainbow'
+# # # # # # # # #
 @students = [] # an empty array accessible to all methods
 #########################
 #add to @students
 def add_to_students name, cohort
   @students << {name: name, cohort: cohort.to_sym} #, hobbies:[], country:"Not known", height_m: "Not known"
+end
+###########
+#feedback
+def success
+  puts Rainbow("Action was successful.").red.bright.center(40)
 end
 #########################
 # Adding a method for user ineraction/user input
@@ -44,9 +51,9 @@ def input_students
     add_to_students name, cohort #refactored
     # then puts the number of students/entries in the students array 
     if @students.count == 1
-      puts "Now we have #{@students.count} student"
+      puts "Now we have #{@students.count} student. Enter a new name or click return for main menu:"
     else
-      puts "Now we have #{@students.count} students"
+      puts "Now we have #{@students.count} students. Enter a new name or click return for main menu:"
     end
       #gets another name from the user..unless it's empty the while loop continues
       name = gets.chomp  #gets.gsub(/\n/,”")
@@ -80,7 +87,8 @@ def print_students_list
       n +=1
       end #end of map do
   end #end of while
-puts #spacer line
+    puts #spacer line
+    success
   end #end if
 end #end of print
 
@@ -113,6 +121,7 @@ def cohorts_print #students #, existing_cohorts
         end #end if
       end #end do
    end #end for
+   success
   #cohorts
 end #end def
 ######################
@@ -137,6 +146,7 @@ def save_students
     csv_line = student_data.join(",")
     file.puts csv_line
   end
+  success
   #file.close  
 end
 #########################
@@ -154,6 +164,7 @@ def try_load_students
     puts "Sorry, #{filename} doesn't exist."
     exit # quit the program
   end
+  
 end
 #########################
 
@@ -164,6 +175,7 @@ def load_students(filename = "students.csv")
     name, cohort = line.chomp.split(",")
     add_to_students name, cohort #refactored
   end
+  success
   #file.close
 end
 
@@ -178,11 +190,11 @@ def interactive_menu
 end
 
 def print_menu
-  puts "1. Input the students"
-  puts "2. Show the students"
-  puts "3. Save the students to file"
-  puts "4. Load the students from file"
-  puts "9. Exit" # 9 because we'll be adding more items
+  puts "1. " + Rainbow("Input the students").underline.bright
+  puts "2. " + Rainbow("Show the students").underline.bright
+  puts "3. " + Rainbow("Save the students to file").underline.bright
+  puts "4. " + Rainbow("Load the students from file").underline.bright
+  puts "9. " + Rainbow("Exit" ).red.underline.bright    # 9 because we'll be adding more items
 end
 
 def show_students
@@ -202,7 +214,7 @@ def process(selection)
     when "4"
       try_load_students
     when "9"
-      puts "The program is now terminated! Good bye!"
+      puts Rainbow("The program is now terminated! Good bye!").blue.bright
       exit
     else
       puts "I don't know what you mean, try again"
