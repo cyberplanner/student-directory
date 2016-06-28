@@ -1,6 +1,7 @@
 require 'rainbow'
-# # # # # # # # #
+# # # # # # # # # 
 @students = [] # an empty array accessible to all methods
+@default_file = "students.csv"
 #########################
 #add to @students
 def add_to_students name, cohort
@@ -10,6 +11,11 @@ end
 #feedback
 def success
   puts Rainbow("Action was successful.").red.bright.center(40)
+end
+
+def termination
+  puts Rainbow("The program is now terminated! Good bye!").yellow.bright
+  exit
 end
 #########################
 # Adding a method for user ineraction/user input
@@ -51,8 +57,10 @@ def input_students
     add_to_students name, cohort #refactored
     # then puts the number of students/entries in the students array 
     if @students.count == 1
+      success
       puts "Now we have #{@students.count} student. Enter a new name or click return for main menu:"
     else
+      success
       puts "Now we have #{@students.count} students. Enter a new name or click return for main menu:"
     end
       #gets another name from the user..unless it's empty the while loop continues
@@ -156,13 +164,21 @@ def try_load_students
   if filename.nil? # get out of the method if it isn't given
     puts "Please enter the a full file name to load (extension included): "
     filename = STDIN.gets.chomp
+    
   end
   if File.exists?(filename) # if it exists
     load_students(filename)
      puts "Loaded #{@students.count} from #{filename}"
   else # if it doesn't exist
-    puts "Sorry, #{filename} doesn't exist."
-    exit # quit the program
+    puts "Sorry, #{filename} doesn't exist. would you like to load default file? Y/N"
+    decision = STDIN.gets.chomp.downcase
+    if decision = "y"
+      load_students(@default_file)
+      success
+    else
+      termination
+    end
+    #exit # quit the program
   end
   
 end
@@ -214,8 +230,7 @@ def process(selection)
     when "4"
       try_load_students
     when "9"
-      puts Rainbow("The program is now terminated! Good bye!").blue.bright
-      exit
+      termination #termination message
     else
       puts "I don't know what you mean, try again"
   end
