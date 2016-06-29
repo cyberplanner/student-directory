@@ -1,4 +1,5 @@
 require 'rainbow'
+require 'csv'
 # # # # # # # # # 
 @students = [] # an empty array accessible to all methods
 @default_file = "students.csv"
@@ -172,7 +173,7 @@ def try_load_students
   else # if it doesn't exist
     puts "Sorry, #{filename} doesn't exist. would you like to load default file? Y/N"
     decision = STDIN.gets.chomp.downcase
-    if decision = "y"
+    if decision == "y"
       load_students(@default_file)
       success
     else
