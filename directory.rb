@@ -59,10 +59,10 @@ def input_students
     # then puts the number of students/entries in the students array 
     if @students.count == 1
       success
-      puts "Now we have #{@students.count} student. Enter a new name or click return for main menu:"
+      puts "Now we have #{@students.count} student. Enter a new name or hit return for main menu:"
     else
       success
-      puts "Now we have #{@students.count} students. Enter a new name or click return for main menu:"
+      puts "Now we have #{@students.count} students. Enter a new name or hit return for main menu:"
     end
       #gets another name from the user..unless it's empty the while loop continues
       name = gets.chomp  #gets.gsub(/\n/,”")
@@ -186,7 +186,7 @@ end
 #########################
 
 # load the students data from the csv file
-def load_students(filename = "students.csv")
+def load_students(filename) # = "students.csv")
   file = File.open filename, "r"
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
