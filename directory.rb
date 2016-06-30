@@ -148,16 +148,14 @@ end
 def save_students
   puts "Please enter the name of the file:"
   filename = STDIN.gets.chomp + ".csv"
-  file = File.open filename, "w"
-  #iterating over the students array
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
-  end
+  CSV.open filename , "a" do |csv|
+    @students.each do |student|
+      csv << [student[:name],student[:cohort]]
+    end #end of do
   success
+  end # end of CSV.open
   #file.close  
-end
+end #end of def
 #########################
 # amethod to take the file name as in argument
 def try_load_students
@@ -186,10 +184,9 @@ end
 #########################
 
 # load the students data from the csv file
-def load_students(filename) # = "students.csv")
-  file = File.open filename, "r"
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
+def load_students(filename)
+  CSV.foreach(filename) do |line|
+    name, cohort = line[0], line[1]
     add_to_students name, cohort #refactored
   end
   success
